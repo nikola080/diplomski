@@ -1,0 +1,49 @@
+.navigacija{
+    width: 100vw;
+    position: fixed;
+    z-index:1
+}
+.offCanvasMain{
+    width: 15% !important;
+    opacity: 90%;
+}
+
+
+.guest_body{
+    background-image: url('../../assets/tennis7.jpg') ;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size:cover;
+    height:100vh;
+    width:100vw;
+    
+}
+.offcancas_div{
+    background-color: #A03F1E;
+   
+}
+
+.outer1{
+    padding:0%;
+}
+
+.outer0{
+    background-color:#211A1E;
+}
+
+.profile_picture_div img{
+    height: 35px;
+    width:35px;
+}
+
+.navitem{
+    border-bottom : 2px solid black;
+}
+
+.navMiddle{
+    border-left : 2px groove  black;
+    border-right : 2px groove  black;
+}
+.wordColor{
+    color: azure;
+}

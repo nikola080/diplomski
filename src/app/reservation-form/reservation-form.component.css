@@ -1,0 +1,129 @@
+.reservation{
+    background: rgba(255, 251, 225, 0.8);
+    animation: example 0.6s;
+   
+}
+
+@keyframes example{
+
+    0%    { opacity: 0%; }
+    5%    { opacity: 5%; }
+    10%   { opacity: 10%; }
+    15%   { opacity: 15%; }
+    20%   { opacity: 20%; }
+    25%   { opacity: 25%; }
+    30%   { opacity: 30%; }
+    35%   { opacity: 35%; }
+    40%   { opacity: 40%; }
+    45%   { opacity: 45%; }
+    50%   { opacity: 50%; }
+    55%   { opacity: 55%; }
+    60%   { opacity: 60%; }
+    65%   { opacity: 65%; }
+    70%   { opacity: 70%; }
+    75%   { opacity: 75%; }
+    80%   { opacity: 80%; }
+    85%   { opacity: 85%; }
+    90%   { opacity: 90%; }
+    95%   { opacity: 95%; }
+    100%  { opacity: 100%;}
+
+}
+.reservation:onload{
+    top:100px;
+}
+
+.animation_table{
+  animation: example 0.6s;
+}
+
+.profile_picture:hover{
+    filter: brightness(30%);
+}
+
+
+
+.court_number:hover{
+    opacity: 100%;
+}
+
+
+@media only screen 
+and (max-width : 600px) {
+
+
+    .font-class{
+
+        font-size: 16px;
+
+    }
+    .bigfont{
+       
+        font-size: 22px;
+        white-space: nowrap;
+    }
+
+    .profile_picture{
+        background-image: url('../../assets/tennis_court.jpg') ;  
+        background-repeat: no-repeat;
+        background-size:cover;
+        min-height: 480px;
+        overflow: hidden;
+        
+    }
+    .min-height-court{
+        min-height: 480px;
+        display: flex; flex-direction: row; justify-content: center; align-items: center;
+    }
+    .court_number{
+        user-select: none;
+        opacity: 0%;
+    }
+    .font-class1{
+        font-size: 12px;
+        text-wrap: nowrap;
+    }
+    ::placeholder{
+        font-size: 12px;
+    }
+}
+@media only screen 
+and (min-width : 610px) {
+
+    .font-class{
+
+        font-size: 28px;
+        white-space: nowrap;
+    }
+
+    .bigfont{
+        white-space: nowrap; 
+        font-size: 36px;
+    }
+
+    .profile_picture{
+        background-image: url('../../assets/tennis_court.jpg') ;
+        background-repeat: no-repeat;
+        background-size:cover;
+        min-height: 950px;
+        overflow: hidden;
+        
+    }
+    .min-height-court{
+        min-height: 950px;
+        display: flex; flex-direction: row; justify-content: center; align-items: center;
+    }
+    .court_number{
+        user-select: none;
+        opacity: 0%;
+    }
+    
+    .font-class1{
+        font-size: 18px;
+        text-wrap: nowrap;
+    }
+
+    ::placeholder{
+        font-size: 20px;
+    }
+}

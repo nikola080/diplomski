@@ -1,0 +1,382 @@
+<header>
+    
+</header>
+
+<body class = "d-flex flex-column container-fluid guest_body" style="overflow-x: scroll;">
+    <nav class="row navbar navigacija p-0 navitem">
+        <div class="container-fluid justify-content-between outer1 outer0">
+            <div class="p-2 d-flex">
+                <button 
+                style="background-color: #A03F1E;"
+                cButton [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                class="navbar-toggler align-self-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            
+          
+            <c-offcanvas
+            class = "offCanvasMain offcancas_div"
+            id="OffcanvasNoBackdrop"
+            [backdrop]="false"
+            [scroll]="true"
+            placement="start"
+            #offcanvasNoBackdrop
+            >
+            <c-offcanvas-header>
+                <p>
+                    <span class = "wordColor" style="font-size: 26;">Menu</span> 
+                </p>
+            <button
+                class="btn-close"
+                aria-label="Close"
+                cButtonClose
+                [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                
+            ></button>
+            </c-offcanvas-header>
+            <c-offcanvas-body>
+                <p style="padding-bottom: 8px ;">
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showMakePractise = !this.showMakePractise">Make practice</span> 
+                </p>
+                <p style="padding-bottom: 8px ;">
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showFinishPractise = !this.showFinishPractise">Finish practice</span> 
+                </p>
+                <p style="padding-bottom: 8px ;" >
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showDiary = !this.showDiary">My diary</span>
+                </p>
+                <p style="padding-bottom: 8px ;" >
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showTournamentTable = !this.showTournamentTable">Current tournaments</span>
+                </p>
+                <p style="padding-bottom: 8px ;" >
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealRankList = !this.revealRankList">Rank list</span>
+                </p>
+               
+            </c-offcanvas-body>
+            </c-offcanvas>
+            <div class="p-2 d-flex">
+                <div class="d-flex container-fluid justify-content-end">
+                    <div class="p-2 align-self-center ">
+                        <span class = "wordColor">Galerija</span>
+                    </div>
+                    <div class="p-2 offset-2 align-self-center navMiddle">
+                        <u style="color: azure;"><span class = "wordColor" (click) = "this.logOut()"> Logout </span></u> 
+                    </div>
+                    <div class="p-2 offset-2 align-self-center" style="white-space: nowrap;">
+                        <u style="color: azure;"><span class = " wordColor" (click) = "this.revealProfile()">{{loadedFirstName + " " + loadedLastName}}</span></u>
+                    </div>
+                    <div class="p-2 offset-2 align-self-center" class = "profile_picture_div flex-shrink-1 align-self-center">
+                        <img [src]="'/assets/' + this.loadedPicture" alt="#" class = "rounded" (click) = "this.revealProfile()">
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+           
+            </div>
+       </nav>
+       <div class="row d-flex " style="min-height: 65px;"> &nbsp;</div>
+       <div *ngIf = "this.showProfile" class="row d-flex justify-content-center">
+              <div class="col-2" *ngIf = "!this.isSmallScreen()">
+                  &nbsp;
+              </div>
+              <div class=" col-sm-12 col-lg-8 align-self-center">
+                  <app-profile></app-profile>
+              </div>
+              <div class="col-2" *ngIf = "!this.isSmallScreen()">
+                      &nbsp;
+              </div>
+          
+       </div>
+
+
+     <div *ngIf = "this.showMakePractise" class="row d-flex justify-content-center pt-3 ">
+        
+        <div class="row d-flex justify-content-center pt-3">
+            <div class="col-2">
+                &nbsp;
+            </div>
+            <div class=" col-8 align-self-center">
+                <div class="container-fluid d-flex registered_table rounded justify-content-center flex-column">
+                    <div class="row flex-grow-1 justify-content-center">
+                        <div class="col-4 p-3">
+                            <label for="registerss" style="white-space:nowrap;" style="font-size: 20px;">
+                                Insert name of trainee :
+                            </label>
+                        </div>
+                        <div class="col-4 align-self-center">
+                            <input list="trainees"  id="traineess" class="form-control" [(ngModel)] = "this.chosenPlayer"  autocomplete="off" >
+                            <datalist id="trainees" name="fieldName1" ngDefaultContro>
+                                <option *ngFor = "let player of this.academyPlayers; let i = index" value = "{{player.email}}" >{{player.firstName + ' ' + player.lastName}}</option>
+                            </datalist>
+                        </div>      
+                        
+                    </div>
+
+                    <div class="row pb-3 flex-grow-1 justify-content-center">
+                        <div class="col-8 p-3">
+                            <button class="btn w-100" style = "background-color: #A03F1E;font-size: 20px;" (click) = "this.choosePlayer() ">add player</button>
+                        </div>                  
+                    </div>
+                    <div class="row pb-1" *ngIf = "this.chosenPlayers.length != 0">
+                        <div class="col-4" style="font-size: 20px;">
+                            <span>
+                                Players chosen :
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row pb-3 " *ngIf = "this.chosenPlayers.length != 0">
+                        <div class="col-2" *ngFor = "let player of this.chosenPlayers; let i = index">
+                            <div class="card flex-grow-1">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{player.firstName + ' ' + player.lastName}}</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted">{{player.email}}</h6>
+                            
+                                  <button class="btn w-100" style = "background-color: #A03F1E;" (click) = "this.removePlayer(i)">remove</button>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                
+                </div>
+                
+            </div>
+            <div class="col-2">
+                &nbsp;
+            </div>
+        </div>
+       
+    </div>
+
+
+    <div *ngIf = "this.showMakePractise && this.chosenPlayers.length > 0" class="row d-flex justify-content-center pt-3 ">
+        
+        <div class="row d-flex justify-content-center pt-3">
+            <div class="col-1">
+                &nbsp;
+            </div>
+            <div class=" col-10 align-self-center">
+                
+                <app-reservation-form reservationType="practise" class="row flex-grow-1" (prepareForMatchCreation) = 'prepareForMatchCreation()'></app-reservation-form>
+                
+            </div>
+            <div class="col-1">
+                &nbsp;
+            </div>
+        </div>
+       
+    </div>
+
+    <div *ngIf = "this.showFinishPractise && this.practisesToFinish.length != 0; else noPractises" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center" >
+            <table class="table table-bordered table-striped animation_table">
+                <thead>
+                  <tr>
+                    <th colspan="7" style="text-align: center !important;">
+                        <span>List of my practices</span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Starts</th>
+                    <th scope="col">Ends</th>
+                    <th scope="col">Court</th>
+                    <th scope="col">Participents</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody class>
+                  
+                        <tr *ngFor = "let res of this.practisesToFinish; let i = index">
+                            <td scope="col">{{i + 1}}</td>
+                            <td scope="col">{{res.date}}</td>
+                            <td scope="col">{{res.starts}}</td>
+                            <td scope="col">{{res.ends}}</td>
+                            <td scope="col">{{res.court}}</td>
+                            <td scope="col">
+                                <ol class="list-group list-group-numbered" *ngIf = "res.academy_players.length != 0">
+                                    <li class="list-group-item" *ngFor = "let player of res.academy_players">
+                                        
+                                            {{player}}
+                                        
+                                    </li>
+                                </ol>
+
+                                <div *ngIf = "res.academy_players.length == 0">
+                                    Solo
+                                </div>
+                            </td>
+    
+                            <td>
+                                <button class="btn w-100" style = "background-color: #A03F1E;" (click) = "showEditPractiseWindow(i)">edit practise</button>
+                            </td>
+                        </tr>   
+                        <tr *ngIf = "this.showEditPractise">
+                            <td colspan="7">
+                                Insert desciption for practice # {{this.indexEditPractise}} <br>
+                                <textarea cols="30" rows="10" class = 'w-100 pb-1' [(ngModel)] = "this.description"></textarea> <br>
+                                <button class="btn w-100" style = "background-color: #A03F1E;" (click) = "editPractise()">finish editing</button>
+
+                            </td>
+                            
+                        </tr>            
+                </tbody>
+                
+              </table>
+        </div>
+        <div class="col-2">
+                &nbsp;
+        </div>
+    
+    </div>
+    <ng-template #noPractises> 
+        <div  *ngIf = 'this.showFinishPractise' class="row d-flex justify-content-center pt-3">
+            <div class="col-2">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">You haven't made single practice yet!</span>               
+                </div>
+                
+            </div>
+            <div class="col-2">
+                &nbsp;
+            </div>
+        </div>
+     </ng-template>
+
+
+
+     <div *ngIf = "this.showDiary && this.myDiary.length != 0; else noDiary" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center" >
+            <table class="table table-bordered table-striped animation_table">
+                <thead>
+                  <tr>
+                    <th colspan="8" style="text-align: center !important;">
+                        <span>My diary</span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Starts</th>
+                    <th scope="col">Ends</th>
+                    <th scope="col">Court</th>
+                    <th scope="col">Participents</th>
+                    <th scope="col">Desciption</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody class>
+                  
+                        <tr *ngFor = "let res of this.myDiary; let i = index">
+                            <td scope="col">{{i + 1}}</td>
+                            <td scope="col">{{res.date}}</td>
+                            <td scope="col">{{res.starts}}</td>
+                            <td scope="col">{{res.ends}}</td>
+                            <td scope="col">{{res.court}}</td>
+                            <td scope="col">
+                                <ol class="list-group list-group-numbered" *ngIf = "res.academy_players.length != 0">
+                                    <li class="list-group-item" *ngFor = "let player of res.academy_players">
+                                        
+                                            {{player}}
+                                        
+                                    </li>
+                                </ol>
+
+                                <div *ngIf = "res.academy_players.length == 0">
+                                    Solo
+                                </div>
+                            </td>
+                            
+                            <td>
+                                {{res.description}}
+                            </td>
+                            <td>
+                                <button class="btn w-100" style = "background-color: #A03F1E;" (click) = "showEditedDiaryWindow(i)">edit practise</button>
+                            </td>
+                        </tr>   
+                        <tr *ngIf = "this.showEditDiary">
+                            <td colspan="8">
+                                Edit desciption for practice # {{this.indexEditDiary}} <br>
+                                <textarea cols="30" rows="10" class = 'w-100 pb-1' [(ngModel)] = "this.editedDescription"></textarea><br>
+                                <button class="btn w-100" style = "background-color: #A03F1E;" (click) = "editEditedPractise()">finish editing</button>
+
+                            </td>
+                            
+                        </tr>          
+                </tbody>
+                
+              </table>
+        </div>
+        <div class="col-2">
+                &nbsp;
+        </div>
+    
+    </div>
+    <ng-template #noDiary> 
+        <div  *ngIf = 'this.showDiary' class="row d-flex justify-content-center pt-3">
+            <div class="col-2">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">You haven't edited a signle practise yet!</span>               
+                </div>
+                
+            </div>
+            <div class="col-2">
+                &nbsp;
+            </div>
+        </div>
+     </ng-template>
+
+
+
+     <div *ngIf = "this.showTournamentTable" class="row d-flex justify-content-center pt-3">
+        <div *ngFor = 'let tour of this.tournaments'>
+            <div class="row d-flex justify-content-center pt-3">
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                <div class=" col-10 align-self-center">
+                    <div class="container-fluid d-flex">
+                        <app-tournament-display [tournamentName] = 'tour.name' class="row flex-grow-1"></app-tournament-display>
+                    </div>
+                    
+                </div>
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                </div>
+        </div>
+    </div>
+   
+    <div *ngIf = "this.revealRankList" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <app-rank-list class="row flex-grow-1"></app-rank-list>
+                
+            </div>
+            
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+
+    
+</body>

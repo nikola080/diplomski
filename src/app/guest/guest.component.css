@@ -1,0 +1,89 @@
+
+@media only screen 
+and (max-width : 600px) {
+    .offCanvasMain {
+        width: 35% !important;
+        opacity: 90%;
+    }
+
+    .font-class{
+
+        font-size: 20px;
+
+    }
+    .navPadding{
+        padding: 6px;
+        margin: 0px;
+      }
+}
+@media only screen 
+and (min-width : 610px) {
+    .offCanvasMain {
+        width: 15% !important;
+        opacity: 90%;
+    }
+
+    .font-class{
+
+        font-size: 20px;
+
+    }
+    .navPadding{
+        padding: 2px;
+
+      }
+}
+
+.navigacija{
+    width: 100vw;
+}
+
+.guest_body{
+    background-image: url('../../assets/tennis7.jpg') ;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size:cover;
+    /*overflow: hidden;*/
+}
+
+.outer1{
+    padding:0%;
+}
+
+.outer0{
+    background-color:#211A1E;
+}
+
+.profile_picture_div img{
+    height: 35px;
+    width:35px;
+}
+.offcancas_div{
+    background-color: #A03F1E;
+   
+}
+
+.navitem{
+    border-bottom : 2px solid black;
+}
+
+.navMiddle{
+    border-left : 2px groove  black;
+    border-right : 2px groove  black;
+}
+
+.navigacija{
+    width: 100vw;
+    position: fixed;
+    z-index:1
+}
+.wordColor{
+    color: azure;
+}
+td {
+    text-align: center;
+  }
+  
+  th {
+    text-align: center;
+  }

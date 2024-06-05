@@ -1,0 +1,65 @@
+<div class="tournament_reg">
+    <div class="row pb-3">
+        <div class="container-fluid d-flex justify-content-center d-flex flex-column align-items-center" >
+            <div class="row flex-grow-1" style="width: 100%;">
+               
+                <div class="col-12 align-self-center" *ngIf = "this.regPerTour.length != 0">
+                    <table class="table table-bordered table-striped animation_table">
+                        <thead>
+                        <tr>
+                            <th colspan="7" style="text-align: center !important;">
+                                <span>List of all currently announced tournaments</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tornament name</th>
+                            <th scope="col">Prize</th>
+                            <th scope="col">Starts</th>
+                            <th scope="col">Ends</th>
+                            <th scope="col">Registered</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let reg of this.regPerTour; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{reg.name}}</td>
+                                <td>{{reg.prize}}</td>
+                                <td>{{reg.starts}}</td>
+                                <td>{{reg.ends}}</td>
+                                <td>{{reg.count}}</td>
+                                <td>
+                                    <button *ngIf = "reg.registered;else regstr" class = "btn" class = 'btn w-100' style="background-color: #92391B; font-size: 18;" 
+                                    (click) = "this.unregister(i)">
+                                        unregister
+                                    </button>
+                                    <ng-template #regstr>
+                                        <button class = "btn" class = 'btn w-100' style="background-color: #92391B; font-size: 18;"
+                                        (click) = "this.register(i)" >
+                                            register
+                                        </button>
+                                    </ng-template>   
+                                </td>
+                            </tr>
+                        </tbody>
+                      </table> 
+                    
+                </div>
+                
+            </div>
+            <div class="row css_block rounded flex-grow-1 align-items-center" *ngIf = "this.regPerTour.length == 0"  style="width: 100%;">
+                <div class = "col-12 rounded align-self-center">
+                   
+                        <p style="font-size: 28px; text-align: center;">
+                            There are no tournaments in phase of registration!
+                        </p>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

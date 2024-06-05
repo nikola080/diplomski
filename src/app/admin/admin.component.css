@@ -1,0 +1,138 @@
+.admin_body {
+    background-image: url('../../assets/tennis7.jpg') ;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size:cover;
+    height:100vh;
+    width:100vw;
+}
+
+
+
+.offCanvasMain{
+    width: 15% !important;
+    opacity: 90%;
+}
+
+.navigacija{
+    width: 100vw;
+    position: fixed;
+    z-index:1
+}
+
+.outer1{
+    padding:0%;
+}
+
+.outer0{
+    background-color:#211A1E;
+}
+
+.profile_picture_div img{
+    height: 35px;
+    width:35px;
+}
+
+.navitem{
+    border-bottom : 2px solid black;
+}
+
+.navMiddle{
+    border-left : 2px groove  black;
+    border-right : 2px groove  black;
+}
+.wordColor{
+    color: azure;
+}
+
+.offcancas_div{
+    background-color: #A03F1E;
+   
+}
+
+.img__wrap {
+    position: relative;
+    height: 200px;
+    width: 257px;
+  }
+  
+  .img__description_layer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(36, 62, 206, 0.6);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+  }
+  
+  .img__wrap:hover .img__description_layer {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .img__description {
+    transition: .2s;
+    transform: translateY(1em);
+  }
+  
+  .img__wrap:hover .img__description {
+    transform: translateY(0);
+  }
+
+  .css_block{
+    background: rgba(255, 251, 225, 0.8);
+  }
+
+
+  .registered_table{
+    background: rgba(255, 251, 225, 0.8);
+    animation: example 0.6s;
+   
+}
+
+@keyframes example{
+
+    0%    { opacity: 0%; }
+    5%    { opacity: 5%; }
+    10%   { opacity: 10%; }
+    15%   { opacity: 15%; }
+    20%   { opacity: 20%; }
+    25%   { opacity: 25%; }
+    30%   { opacity: 30%; }
+    35%   { opacity: 35%; }
+    40%   { opacity: 40%; }
+    45%   { opacity: 45%; }
+    50%   { opacity: 50%; }
+    55%   { opacity: 55%; }
+    60%   { opacity: 60%; }
+    65%   { opacity: 65%; }
+    70%   { opacity: 70%; }
+    75%   { opacity: 75%; }
+    80%   { opacity: 80%; }
+    85%   { opacity: 85%; }
+    90%   { opacity: 90%; }
+    95%   { opacity: 95%; }
+    100%  { opacity: 100%;}
+
+}
+
+td {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+.animation_table{
+  animation: example 0.6s;
+}

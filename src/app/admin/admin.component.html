@@ -1,0 +1,612 @@
+
+<header>
+    
+</header>
+
+<body class = "d-flex flex-column container-fluid admin_body" style="overflow-x: scroll;">
+    <nav class="row navbar navigacija p-0 navitem">
+        <div class="container-fluid justify-content-between outer1 outer0">
+            <div class="p-2 d-flex">
+                <button 
+                style="background-color: #A03F1E;"
+                cButton [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                class="navbar-toggler align-self-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            
+          
+            <c-offcanvas
+            class = "offCanvasMain offcancas_div"
+            id="OffcanvasNoBackdrop"
+            [backdrop]="false"
+            [scroll]="true"
+            placement="start"
+            #offcanvasNoBackdrop
+            >
+            <c-offcanvas-header>
+                <p>
+                    <span class = "wordColor" style="font-size: 26;">Menu</span> 
+                </p>
+            <button
+                class="btn-close"
+                aria-label="Close"
+                cButtonClose
+                [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                
+            ></button>
+            </c-offcanvas-header>
+            <c-offcanvas-body>
+            <p style="padding-bottom: 8px ;">
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.toggleAllApprovedUsers = !this.toggleAllApprovedUsers" >All approved users</span> 
+            </p>
+            <p style="padding-bottom: 8px ;">
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.toggleUsersToApprove = !this.toggleUsersToApprove">Approve users</span> 
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showReservations = !this.showReservations">Terminate reservations</span>
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealRegistered = !this.revealRegistered">Registered players for tournaments</span>
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealMakeTournament()">Make tournament</span>
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showTournamentTable = !this.showTournamentTable" >Edit current tournaments</span>
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealRankList = !this.revealRankList">Rank list</span>
+            </p>
+           
+            </c-offcanvas-body>
+            </c-offcanvas>
+            <div class="p-2 d-flex">
+                <div class="d-flex container-fluid justify-content-end">
+                    <div class="p-2 align-self-center navMiddle">
+                        <span class = "wordColor">Galerija</span>
+                    </div>
+                    <div class="p-2 offset-2 align-self-center ">
+                        <u style="color: azure;"><span class = "wordColor" (click) = "this.logOut()"> Logout </span></u> 
+                    </div>
+                  
+                    
+                </div>
+            </div>
+            
+           
+            </div>
+       </nav>
+     <div class="row d-flex " style="min-height: 65px;"> &nbsp;</div>
+    
+     <div *ngIf = 'this.toggleAllApprovedUsers && this.approvedUsers.length != 0; else noApprovedUsers' class="row d-flex justify-content-center">
+        <div class="col-1">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <table class="table table-bordered table-striped animation_table">
+                <thead>
+                  <tr>
+                    <th colspan="8" style="text-align: center !important;">
+                        <span>List of all approved users</span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Phone number</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody class>
+                  
+                        <tr *ngFor = "let user of this.approvedUsers; let i = index">
+                            <td scope="col">{{i + 1}}</td>
+                            
+                            <td scope="col">
+                                <img [src]="this.approvedImgs[i]" style="width:80px; height:50px;">
+                            </td>
+                          
+                            <td scope="col">{{user.firstName}}</td>
+                            <td scope="col">{{user.lastName}}</td>
+                            <td scope="col">{{user.email}}</td>
+                            <td scope="col">{{user.type}}</td>
+                            <td scope="col">{{user.phone}}</td>
+                            <td scope="col">
+                                <button type="button" class = 'btn w-100' style="background-color: #92391B; font-size: 18;" 
+                                data-toggle="modal fade" (click) = "this.indexUserToDelete = i; this.displayDelete = 'block'">delete user</button>
+                            </td>
+                        
+                        </tr>                    
+                </tbody>
+                
+              </table>
+        </div>
+        <div class="col-1">
+                &nbsp;
+        </div>
+    
+    </div>
+    <ng-template #noApprovedUsers> 
+        <div  *ngIf = 'this.toggleAllApprovedUsers' class="row d-flex justify-content-center pt-3">
+            <div class="col-1">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">There are no approved users!</span>               
+                </div>
+                
+            </div>
+            <div class="col-1">
+                &nbsp;
+            </div>
+        </div>
+    </ng-template>
+
+     <div *ngIf = 'this.toggleUsersToApprove && this.usersToApprove.length != 0; else noUsersToApprove' class="row d-flex justify-content-center">
+            <div class="col-1">
+                &nbsp;
+            </div>
+            <div class=" col-8 align-self-center">
+                <table class="table table-bordered table-striped animation_table">
+                    <thead>
+                    <tr>
+                        <th colspan="9" style="text-align: center !important;">
+                            <span>List of all users to approve/disapprove</span>
+                        </th>
+                    </tr>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Picture</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Phone number</th>
+                        <th scope="col">Action 1</th>
+                        <th scope="col">Action 2</th>
+                      </tr>
+                    </thead>
+                    <tbody class>
+                      
+                            <tr *ngFor = "let user of this.usersToApprove; let i = index">
+                                <td scope="col">{{i + 1}}</td>
+                                
+                                <td scope="col">
+                                    <img [src]="this.toApproveImgs[i]"  style="width:80px; height:50px;">
+                                </td>
+                              
+                                <td scope="col">{{user.firstName}}</td>
+                                <td scope="col">{{user.lastName}}</td>
+                                <td scope="col">{{user.email}}</td>
+                                <td scope="col">{{user.type}}</td>
+                                <td scope="col">{{user.phone}}</td>
+                                <td scope="col"><button class = 'btn w-100' style="background-color: #92391B; font-size: 18;" 
+                                    data-toggle="modal fade" (click) = "this.indexUserToApprove = i; this.displayApprove = 'block'">approve user</button></td>
+                                <td scope="col"><button class = 'btn w-100' style="background-color: #92391B; font-size: 18;" 
+                                    data-toggle="modal fade" (click) = "this.indexUserToDisapprove = i; this.displayDisapprove = 'block'">disapprove user</button></td>
+
+                            </tr>                    
+                    </tbody>
+                    
+                  </table>
+            </div>
+            <div class="col-1">
+                    &nbsp;
+            </div>
+        
+     </div>
+     <ng-template #noUsersToApprove> 
+        <div  *ngIf = 'this.toggleUsersToApprove' class="row d-flex justify-content-center pt-3">
+            <div class="col-1">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">There are no users to approve!</span>               
+                </div>
+                
+            </div>
+            <div class="col-1">
+                &nbsp;
+            </div>
+        </div>
+     </ng-template>
+     
+
+    <div *ngIf = "this.showReservations && this.allReservations.length != 0; else noReservationToShow" class="row d-flex justify-content-center pt-3">
+        <div class="col-1">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <table class="table table-bordered table-striped animation_table">
+                    <thead>
+                    <tr>
+                        <th colspan="7" style="text-align: center !important;">
+                            <span>List of all reservations by active users</span>
+                        </th>
+                    </tr>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Reservator</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Court</th>
+                        <th scope="col">Starts</th>
+                        <th scope="col">Ends</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class>
+                      
+                            <tr *ngFor = "let res of this.allReservations; let i = index">
+                                <td scope="col">{{i + 1}}</td>
+                                <td scope="col">{{res.reservedByWho}}</td>
+                                <td scope="col">{{res.date}}</td>
+                                <td scope="col">{{res.court}}</td>
+                                <td scope="col">{{res.starts}}</td>
+                                <td scope="col">{{res.ends}}</td>
+                                <td scope="col"><button class = 'btn w-100' style="background-color: #92391B; font-size: 18;" 
+                                    data-toggle="modal fade" (click) = "this.indexReservationToTerminate = i; this.displayReservation = 'block'">terminate reservation</button></td>
+                            </tr>                    
+                    </tbody>
+                    
+                  </table>
+            </div>
+            
+        </div>
+        <div class="col-1">
+            &nbsp;
+        </div>
+    </div>
+    <ng-template #noReservationToShow> 
+        <div  *ngIf = 'this.showReservations' class="row d-flex justify-content-center pt-3">
+            <div class="col-1">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">There are no reservations to terminate!</span>               
+                </div>
+                
+            </div>
+            <div class="col-1">
+                &nbsp;
+            </div>
+        </div>
+     </ng-template>
+
+
+
+<!--
+
+<div class="container d-flex justify-content-center">
+                            <div class="row flex-grow-1">
+                                <div class="col-12 align-self-center">
+                                   
+                                   
+                                    
+                                </div>
+                            </div>
+                        </div>
+-->
+    <div *ngIf = "this.revealRegistered" class="row d-flex justify-content-center pt-3 ">
+        
+        <div class="row d-flex justify-content-center pt-3">
+            <div class="col-2">
+                &nbsp;
+            </div>
+            <div class=" col-8 align-self-center ">
+                <div class="container-fluid d-flex registered_table rounded justify-content-center flex-column flex-wrap">
+                    <div class="row pb-3 flex-grow-1 justify-content-center">
+                        <div class="col-4 p-3">
+                            <label for="registerss" style="white-space:nowrap;" >
+                                Insert name of announced tournament:
+                            </label>
+                        </div>
+                        <div class="col-4 align-self-center">
+                            <input list="registers"  id="registerss" class="form-control"  [(ngModel)] = "this.selectedTournamentString">
+                            <datalist id="registers" name="fieldName1" ngDefaultControl>
+                                <option *ngFor = "let tour of this.announcedTours; let i = index" value = "{{tour.name}}">{{tour.name}}</option>
+                            </datalist>
+                        </div>      
+                        
+                    </div>
+
+                    <div class="row pb-3 " *ngIf = "this.selectedTournamentString && setTournament()">
+                        <table class="table table-bordered table-striped animation_table">
+                            <thead>
+                            <tr>
+                                <th colspan="7" style="text-align: center !important;">
+                                    <span>List of all registered players for tournament {{this.selectedTournament.name}}</span>
+                                </th>
+                            </tr>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Player</th>
+                              </tr>
+                            </thead>
+                            <tbody class>
+                              
+                                    <tr *ngFor = "let rgs of this.shownRegistrations; let i = index">
+                                        <td scope="col">{{i +1}}</td>
+                                        <td scope="col">{{rgs.player}}</td>
+                                   </tr>                    
+                            </tbody>
+                            
+                          </table>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-2">
+                &nbsp;
+            </div>
+        </div>
+
+        <div class="row d-flex pt-3">
+            
+        </div>
+       
+    </div>
+    <div class="row d-flex justify-content-center pt-3" *ngIf = "this.showMakeTournament">
+        <div class="col-1">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <div class="container-fluid rounded css_block">
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-3 p-2 align-self-center">
+                            <b><span style="font-size: 24px;">Create new tournament</span></b>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3 p-2 align-self-center">
+                            <span>Insert name of tournament:</span>
+                        </div>
+                        
+                        <div class="col-9 p-2">
+                            <input type="text" class = "form-control" placeholder="name of tournament" [(ngModel)] = "this.newTourName">
+                        </div>
+                    </div>
+
+                    <div *ngIf = "this.tourNameError"  class="row">
+                        <div  class="col-12 p-2 align-self-center alert alert-danger" role="alert">
+
+                            {{this.tourNameError}}
+                                                  
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-3 p-2 align-self-center">
+                            <span>Starting date:</span>
+                        </div>
+                        
+                        <div class="col-9 p-2">
+                            <input type="date" class = "form-control" placeholder="name of tournament" [(ngModel)] = "this.newTourStarts">
+                        </div>
+                    </div>
+
+                    <div *ngIf = "this.newTourStartsError"  class="row">
+                        <div  class="col-12 p-2 align-self-center alert alert-danger" role="alert">
+
+                            {{this.newTourStartsError}}
+                                                  
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-3 p-2 align-self-center">
+                            <span>Ending date:</span>
+                        </div>
+                        
+                        <div class="col-9 p-2">
+                            <input type="date" class = "form-control" placeholder="name of tournament" [(ngModel)] = "this.newTourEnds">
+                        </div>
+                    </div>
+
+                    <div *ngIf = "this.newTourEndsError"  class="row">
+                        <div  class="col-12 p-2 align-self-center alert alert-danger" role="alert">
+
+                            {{this.newTourEndsError}}
+                                                  
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-3 p-2 align-self-center">
+                            <span>Prize:</span>
+                        </div>
+                        
+                        <div class="col-9 p-2">
+                            <input type="number" class = "form-control" placeholder="prize of tournament" [(ngModel)] = "this.newTourPrize">
+                        </div>
+                    </div>
+
+                    
+                    <div *ngIf = "this.newTourPrizeError"  class="row">
+                        <div  class="col-12 p-2 align-self-center alert alert-danger" role="alert">
+
+                            {{this.newTourPrizeError}}
+                                                  
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-3 p-2 align-self-center">
+                            <span>Insert number of participants:</span>
+                        </div>
+                        
+                        <div class="col-9 p-2">
+                            <select class="form-control" name="select_numpar" [(ngModel)] = "this.selectedNumPar">
+                                <option *ngFor = "let par of this.selectNumPar; let i = index" value="{{par}}">
+                                    {{par}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div *ngIf = "this.selectNumParError"  class="row">
+                        <div  class="col-12 p-2 align-self-center alert alert-danger" role="alert">
+
+                            {{this.selectNumParError}}
+                                                  
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <button class="btn w-100" style = "background-color: #A03F1E;" (click) = "this.createTournament()">make tournament</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-1">
+            &nbsp;
+        </div>
+    </div>
+
+    <div *ngIf = "this.revealRankList" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <app-rank-list class="row flex-grow-1"></app-rank-list>
+                
+            </div>
+            
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+   
+    <div *ngIf = "this.showTournamentTable" class="row d-flex justify-content-center pt-3">
+        <div *ngFor = 'let tour of this.tournaments'>
+            <div class="row d-flex justify-content-center pt-3">
+            <div class="col-1">
+                &nbsp;
+            </div>
+            <div class=" col-10 align-self-center">
+                <div class="container-fluid d-flex">
+                    <app-tournament-display [tournamentName] = 'tour.name' class="row flex-grow-1"></app-tournament-display>
+                </div>
+                
+            </div>
+            <div class="col-1">
+                &nbsp;
+            </div>
+            </div>
+        </div>
+    </div>
+   
+
+    <div *ngIf = "this.displayDelete == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayDelete}">
+        <div class="modal-dialog" role="document">
+              <div class="modal-content" style="background-color: #fffbe1;">
+                    <div class="modal-header">
+                          <h4 class="modal-title">Alert</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="this.displayDelete = 'none'"><span aria-hidden="true">&times;</span></button>
+                        </div>
+               <div class="modal-body">
+                          <p>Are you sure that you want to delete user 
+                            <b>
+                                {{this.approvedUsers[this.indexUserToDelete].firstName}} {{this.approvedUsers[this.indexUserToDelete].lastName}} ({{this.approvedUsers[this.indexUserToDelete].email}})
+                            </b>?
+                          </p>
+                        </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn btn-default" (click)="this.deleteUser(this.indexUserToDelete); this.displayDelete = 'none'" style="background-color: #92391B;">Yes</button>
+                          <button type="button" class="btn btn-default" (click)="this.displayDelete = 'none'" style="background-color: #92391B;">No</button>
+                        </div>
+           </div>
+            </div>
+    </div>  
+
+    <div *ngIf = "this.displayApprove == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayApprove}">
+        <div class="modal-dialog" role="document">
+              <div class="modal-content"  style="background-color: #fffbe1;">
+                    <div class="modal-header">
+                          <h4 class="modal-title">Alert</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="this.displayApprove = 'none'"><span aria-hidden="true">&times;</span></button>
+                        </div>
+               <div class="modal-body">
+                          <p>Are you sure that you want to approve user 
+                            <b>
+                                {{this.usersToApprove[this.indexUserToApprove].firstName}} {{this.usersToApprove[this.indexUserToApprove].lastName}} ({{this.usersToApprove[this.indexUserToApprove].email}})
+                            </b>?
+                           </p>
+                        </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn btn-default" (click)="this.approveUser(this.indexUserToApprove); this.displayApprove = 'none'" style="background-color: #92391B;">Yes</button>
+                          <button type="button" class="btn btn-default" (click)="this.displayApprove = 'none'" style="background-color: #92391B;">No</button>
+                        </div>
+           </div>
+            </div>
+    </div>  
+
+    <div *ngIf = "this.displayReservation == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayReservation}">
+        <div class="modal-dialog" role="document">
+              <div class="modal-content"  style="background-color: #fffbe1;">
+                    <div class="modal-header">
+                          <h4 class="modal-title">Alert</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="this.displayReservation = 'none'"><span aria-hidden="true">&times;</span></button>
+                        </div>
+               <div class="modal-body">
+                          <p>Are you sure that you want to terminate reservation #{{this.indexReservationToTerminate}}
+                           </p>
+                        </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn btn-default" (click)="this.terminateReservation(this.indexReservationToTerminate); this.displayReservation = 'none'" style="background-color: #92391B;">Yes</button>
+                          <button type="button" class="btn btn-default" (click)="this.displayReservation = 'none'" style="background-color: #92391B;">No</button>
+                        </div>
+           </div>
+            </div>
+    </div>  
+
+    <div *ngIf = "this.displayDisapprove == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayDisapprove}">
+        <div class="modal-dialog" role="document">
+              <div class="modal-content"  style="background-color: #fffbe1;">
+                    <div class="modal-header">
+                          <h4 class="modal-title">Alert</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="this.displayDisapprove = 'none'"><span aria-hidden="true">&times;</span></button>
+                        </div>
+               <div class="modal-body">
+                          <p>
+                            Are you sure you want to disapprove user 
+                            <b>
+                                {{this.usersToApprove[this.indexUserToDisapprove].firstName}} {{this.usersToApprove[this.indexUserToDisapprove].lastName}} ({{this.usersToApprove[this.indexUserToDisapprove].email}})
+                            </b>?
+                           </p>
+                        </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn btn-default" (click)="this.deleteUser(this.indexUserToDisapprove); this.displayDisapprove = 'none'" style="background-color: #92391B;">Yes</button>
+                          <button type="button" class="btn btn-default" (click)="this.displayDisapprove = 'none'" style="background-color: #92391B;">No</button>
+                        </div>
+           </div>
+            </div>
+    </div> 
+  </body>
+

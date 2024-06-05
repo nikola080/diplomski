@@ -1,0 +1,73 @@
+.profile{
+    background: rgba(255, 251, 225, 0.8);
+    animation: example 0.6s;
+   
+}
+
+@keyframes example{
+
+    0%    { opacity: 0%; }
+    5%    { opacity: 5%; }
+    10%   { opacity: 10%; }
+    15%   { opacity: 15%; }
+    20%   { opacity: 20%; }
+    25%   { opacity: 25%; }
+    30%   { opacity: 30%; }
+    35%   { opacity: 35%; }
+    40%   { opacity: 40%; }
+    45%   { opacity: 45%; }
+    50%   { opacity: 50%; }
+    55%   { opacity: 55%; }
+    60%   { opacity: 60%; }
+    65%   { opacity: 65%; }
+    70%   { opacity: 70%; }
+    75%   { opacity: 75%; }
+    80%   { opacity: 80%; }
+    85%   { opacity: 85%; }
+    90%   { opacity: 90%; }
+    95%   { opacity: 95%; }
+    100%  { opacity: 100%;}
+
+}
+.profile:onload{
+    top:100px;
+}
+
+
+
+
+@media only screen 
+and (max-width : 600px) {
+    .offCanvasMain {
+        width: 35% !important;
+        opacity: 90%;
+    }
+
+    .font-class{
+
+        font-size: 18px;
+
+    }
+    .profile_picture_div img{
+        height: 60px;
+        width:60px;
+    }
+}
+@media only screen 
+and (min-width : 610px) {
+    .offCanvasMain {
+        width: 15% !important;
+        opacity: 90%;
+    }
+
+    .font-class{
+
+        font-size: 24px;
+
+    }
+
+    .profile_picture_div img{
+        height: 130px;
+        width: 130px;
+    }
+}

@@ -1,0 +1,355 @@
+<div class="tournament_table rounded pb-2">
+    <div class="row pb-3">
+        <div class="container d-flex justify-content-center flex-column">
+            <div class="row flex-grow-1">
+                <div class="col-lg-3 col-sm-1">
+                    &nbsp;
+                </div>
+                <div class="col-lg-6 col-sm-9" style="text-align: center;">
+                   
+                    <span style="color:211A1E; white-space: nowrap;" class = "font-class">Tournament {{this.tourName}} series {{this.tournament.prize}}</span>
+                    
+                </div>
+                <div class="col-lg-3 col-sm-1">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row flex-grow-1">
+                <div *ngIf = "this.isAdmin() && this.tournament.status == '0' " class="col-2 align-self-center">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.displayActivateTournament = 'block'">
+                       <span  style="font-size: 18;">activate tour</span>
+                   </button>
+                </div>
+                <div *ngIf = "this.isAdmin() && this.tournament.status == '1' " class="col-2 align-self-center">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.displayFinishTour = 'block'">
+                       <span  style="font-size: 18;">finish tour</span>
+                   </button>
+                </div>
+                <div *ngIf = "this.isAdmin() && this.tournament.status == '2' " class="col-2 align-self-center">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.displayDeleteTournament = 'block'">
+                       <span  style="font-size: 18;">delete tour</span>
+                   </button>
+                </div>
+            </div>
+
+
+            <div class="row flex-grow-1 p-2" *ngIf = "this.isSmallScreen">
+                <div class="col-3">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.decStage()">
+                        &lt;
+                    </button>
+
+                </div>
+                <div class="col-6" style="text-align: center;">
+                   
+                    &nbsp;
+                    
+                </div>
+                <div class="col-3">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.incStage()">
+                       >
+                    </button>
+                </div>
+            </div>
+
+            <div class="row flex-grow-1 p-1" *ngIf = "this.isSmallScreen">
+                <div class="col-12 align-self-center">
+                   <b>
+                    <p style="text-align: center;">
+                        {{this.stageString}}
+                    </p>
+                   </b>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pb-3">
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="row flex-grow-1">
+                <div class="col-12 align-self-center">
+                   
+                   <canvas class="pixelated" #canvas1 ></canvas>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "this.selectedMatch != null" class="row pb-3">
+        <div class="container d-flex justify-content-center flex-column">
+            <div class="row flex-grow-1 pb-2">
+                <div class="col-3 align-self-center" style="font-size: 22px;">
+                    Edit tournament match {{selectedMatch + 1}}                  
+                </div>
+                <div *ngIf = "this.tourMatches[this.selectedMatch].match" class="col-6 align-self-center">
+                   &nbsp;
+                </div>
+                <div *ngIf = "this.tourMatches[this.selectedMatch].match" class="col-3 align-self-center" style="font-size: 22px;">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;"  data-toggle="modal fade" (click) = "this.displayDelete = 'block'">
+                        <span  style="font-size: 18;">delete match</span>
+                    </button>                  
+                </div>
+                
+            </div>
+            <div *ngIf = "!this.tourMatches[this.selectedMatch].match" class="row pb-2 justify-content-start ">
+                <div class="form-check col-4 ">
+                    
+                    <div class="form-check form-switch align-self-center">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"  [(ngModel)]="this.seededPlayer">
+                        <label class="form-check-label" for="flexSwitchCheckDefault" style="font-size: 18px;" >Seeded player</label>
+                    </div>
+                </div>
+                
+            </div>
+            <div *ngIf = "!this.tourMatches[this.selectedMatch].match" class="row pb-2">
+
+                <!--
+                <div class="col-1" style="font-size: 18px;">
+                    Player 1:
+                </div>
+                <div class="col-4" style="font-size: 18px;">
+                    <select class="form-control form-control" [(ngModel)] = "this.player1Chosen" name = "player1_chosen" >
+                            
+                        <option *ngFor = "let player of this.allPlayers; let i = index" value = "{{player.email}}">{{player.email}}</option>    
+                    </select>
+                </div>
+                <div class="col-2" >
+                    &nbsp;
+                </div>
+
+                
+
+                -->
+            
+
+                <div class="col-1" style="font-size: 18px;">
+                    <label for="playr1">Player 1:</label>
+                </div>
+                <div class="col-5" style="font-size: 18px;">
+                    <input list="player1"  id="playr1" class="form-control"  [(ngModel)] = "this.player1Chosen"  autocomplete="off" >
+                    <datalist id="player1" name="fieldName1" ngDefaultControl >
+                        <option *ngFor = "let player of this.allPlayers; let i = index" value = "{{player.email}}">{{player.email}}</option>
+                    </datalist>
+                </div>
+                
+                
+                <div *ngIf = '!this.seededPlayer' class="col-6 d-flex flex-row">
+                    <div  class="col-2" style="font-size: 18px;">
+                        <label for="playr2">Player 2:</label>
+                    </div>
+                    <div class="col-10" style="font-size: 18px;">
+                        <input list="player2"  id="playr2" class="form-control"  [(ngModel)] = "this.player2Chosen"  autocomplete="off" >
+                        <datalist id="player2" name="fieldName2" ngDefaultControl>
+                            <option *ngFor = "let player of this.allPlayers; let i = index" value = "{{player.email}}">{{player.email}}</option>
+                        </datalist>
+                    </div>
+                </div>
+               
+                
+
+    
+            </div>
+            
+            <div *ngIf = "!this.tourMatches[this.selectedMatch].match && this.seededPlayer && this.player1Chosen" class="row flex-grow-1 pb-2 justify-content-center">
+                <div class="col-3 align-self-center" style="font-size: 18px;">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.editMatch()"
+                   >
+                       <span  style="font-size: 18;">finish editing</span>
+                   </button>            
+                </div>
+                
+            </div>
+            
+            <div *ngIf = "this.tourMatches[this.selectedMatch].match  && this.tourMatches[this.selectedMatch].match.reservation" class="row flex-grow-1 pb-2">
+                <div class="col-3 align-self-center" style="font-size: 18px;">
+                    Do you want to change participents?              
+                </div>
+                <div class="col-2 align-self-center" style="font-size: 18px;">
+                    
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" 
+                     (click) = "this.togglePart[this.selectedMatch] = !this.togglePart[this.selectedMatch];">
+                        <span  style="font-size: 18;">change participents</span>
+                    </button>
+                               
+                </div>
+                
+            </div>
+
+            <div *ngIf = "this.togglePart[this.selectedMatch]" class="row pb-2">
+
+                <div class="col-1" style="font-size: 18px;">
+                    <label for="playr11">Player 1:</label>
+                </div>
+                <div class="col-5" style="font-size: 18px;">
+                    <input list="player11"  id="playr11" class="form-control"  [(ngModel)] = "this.editedPlayer1"  autocomplete="off" >
+                    <datalist id="player11" name="fieldName3" ngDefaultControl>
+                        <option *ngFor = "let player of this.allPlayers; let i = index" value = "{{player.email}}">{{player.email}}</option>
+                    </datalist>
+                </div>
+              
+
+                <div *ngIf = " this.tourMatches[this.selectedMatch].match.status != '5'" class="col-6 d-flex flex-row">
+                    <div  class="col-2" style="font-size: 18px;">
+                        <label for="playr2">Player 2:</label>
+                    </div>
+                    <div class="col-10" style="font-size: 18px;">
+                        <input list="player22"  id="playr22" class="form-control"  [(ngModel)] = "this.editedPlayer2"  autocomplete="off" >
+                        <datalist id="player22" name="fieldName4" ngDefaultControl>
+                            <option *ngFor = "let player of this.allPlayers; let i = index" value = "{{player.email}}">{{player.email}}</option>
+                        </datalist>
+                    </div>
+                </div>
+                            
+            </div>
+            
+            <div *ngIf = "this.tourMatches[this.selectedMatch].match && (this.tourMatches[this.selectedMatch].match.status != '5'
+                && this.tourMatches[this.selectedMatch].match.status != '3')  && this.tourMatches[this.selectedMatch].match.reservation" class="pb-3">
+                <div> <span style="font-size: 18;"> Change match status: </span>
+                </div>
+                <div class="form-check " *ngIf = "this.tourMatches[this.selectedMatch].match.status != '2'">
+                    <input class="form-check-input" type="radio" name="matchStatusButton1" id="statusPlaying" value="2" [(ngModel)] = 'this.editStatus' >
+                    <label class="form-check-label" for="statusPlaying" style="font-size: 18;">Playing</label>
+                  </div>
+                  <div class="form-check " *ngIf = "this.tourMatches[this.selectedMatch].match.status != '41'">
+                    <input class="form-check-input" type="radio" name="matchStatusButton2" id="statusRetired1" value="41" [(ngModel)] = 'this.editStatus'>
+                    <label class="form-check-label" for="statusRetired1" style="font-size: 18;">Player 1 retired</label>
+                  </div>
+                  <div class="form-check " *ngIf = "this.tourMatches[this.selectedMatch].match.status != '42'">
+                    <input class="form-check-input" type="radio" name="matchStatusButton3" id="statusRetired2" value="42" [(ngModel)] = 'this.editStatus'>
+                    <label class="form-check-label" for="statusRetired2" style="font-size: 18;">Player 2 retired </label>
+                  </div>
+            </div>
+
+            <div *ngIf = "this.tourMatches[this.selectedMatch].match && this.tourMatches[this.selectedMatch].match.status != '5'  && this.tourMatches[this.selectedMatch].match.reservation" class="row flex-grow-1 pb-2">
+                <div class="col-1 align-self-center" style="font-size: 18px;">
+                    Result :              
+                </div>
+                <div class="col-4 align-self-center" style="font-size: 18px;">
+                    
+                    <input class="form-control form-control" type="text" [(ngModel)] = 'this.editedResult'>
+                               
+                </div>
+                
+            </div>
+           
+            <div  *ngIf = "this.errorStatusMessage" class="col-5 alert alert-danger" style="font-size: 18px;" role="alert">
+                    
+                {{this.errorStatusMessage}}
+                
+            </div>
+       
+       
+            <div  *ngIf = "this.errorResultSyntaxMessage" class="col-5 alert alert-danger" style="font-size: 18px;" role="alert">
+                
+                {{this.errorResultSyntaxMessage}}
+                
+            </div>
+           
+            <div *ngIf = "this.tourMatches[this.selectedMatch].match && this.tourMatches[this.selectedMatch].match.reservation" class="row flex-grow-1 pb-2 justify-content-center">
+                <div class="col-3 align-self-center" style="font-size: 18px;">
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;" (click) = "this.editMatch()"
+                   >
+                       <span  style="font-size: 18;">finish editing</span>
+                   </button>            
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+<div *ngIf = "this.selectedMatch != null && ((!this.tourMatches[this.selectedMatch].match  && this.player1Chosen && this.player2Chosen) || 
+(this.tourMatches[this.selectedMatch].match && !this.tourMatches[this.selectedMatch].match.reservation && this.tourMatches[this.selectedMatch].player2_ != '' )) && !this.seededPlayer" class = "pt-2">
+
+    <app-reservation-form (prepareForMatchCreation) = 'prepareForMatchCreation()' (setReturnedTournamentMatch) = 'setReturnedTournamentMatch()'
+        reservationType="tournament match" [seededPlayerRes] = this.seededPlayer [justReservation] = this.justRes class="row flex-grow-1" [tournament] = this.tournament></app-reservation-form>
+
+</div>
+
+<div *ngIf = "this.displayDelete == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayDelete}">
+    <div class="modal-dialog" role="document">
+          <div class="modal-content"  style="background-color: #fffbe1;">
+                <div class="modal-header">
+                      <h4 class="modal-title">Alert</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="this.displayDelete = 'none'"><span aria-hidden="true">&times;</span></button>
+                    </div>
+           <div class="modal-body">
+                      <p>Are you sure that you want to delete match {{this.selectedMatch}}? </p>
+                      <p>Players:</p>
+                      <ul>
+                        <li>
+                            {{this.tourMatches[this.selectedMatch].match.player1}} ({{this.tourMatches[this.selectedMatch].player1_}})
+                        </li>
+                        <div *ngIf = "this.tourMatches[this.selectedMatch].player2_ != ''">
+                            <li>
+                                {{this.tourMatches[this.selectedMatch].match.player2}}  ({{this.tourMatches[this.selectedMatch].player2_}})
+                            </li>
+                        </div>
+
+                      </ul>
+                    </div>
+                <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="this.deleteMatch(); this.displayDelete = 'none'" style="background-color: #92391B;">Yes</button>
+                      <button type="button" class="btn btn-default" (click)="this.displayDelete = 'none'" style="background-color: #92391B;">No</button>
+                    </div>
+       </div>
+        </div>
+</div>
+
+<div *ngIf = "this.displayFinishTour == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayFinishTour}">
+    <div class="modal-dialog" role="document">
+          <div class="modal-content"  style="background-color: #fffbe1;">
+                <div class="modal-header">
+                      <h4 class="modal-title">Alert</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="this.displayFinishTour = 'none'"><span aria-hidden="true">&times;</span></button>
+                    </div>
+           <div class="modal-body">
+                      <p>Are you sure that you want to finish tournament {{this.tourName}}? </p>
+                    </div>
+                <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="this.finishTournament(); this.displayFinishTour = 'none'" style="background-color: #92391B;">Yes</button>
+                      <button type="button" class="btn btn-default" (click)="this.displayFinishTour = 'none'" style="background-color: #92391B;">No</button>
+                    </div>
+       </div>
+        </div>
+</div>
+
+
+<div *ngIf = "this.displayDeleteTournament == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayDeleteTournament}">
+    <div class="modal-dialog" role="document">
+          <div class="modal-content"  style="background-color: #fffbe1;">
+                <div class="modal-header">
+                      <h4 class="modal-title">Alert</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="this.displayDeleteTournament = 'none'"><span aria-hidden="true">&times;</span></button>
+                    </div>
+           <div class="modal-body">
+                      <p>Are you sure that you want to delete tournament {{this.tourName}}? </p>
+                    </div>
+                <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="this.deleteTournament(); this.displayDeleteTournament = 'none'" style="background-color: #92391B;">Yes</button>
+                      <button type="button" class="btn btn-default" (click)="this.displayDeleteTournament = 'none'" style="background-color: #92391B;">No</button>
+                    </div>
+       </div>
+        </div>
+</div>
+
+
+<div *ngIf = "this.displayActivateTournament == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayActivateTournament}">
+    <div class="modal-dialog" role="document">
+          <div class="modal-content"  style="background-color: #fffbe1;">
+                <div class="modal-header">
+                      <h4 class="modal-title">Alert</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="this.displayActivateTournament = 'none'"><span aria-hidden="true">&times;</span></button>
+                    </div>
+           <div class="modal-body">
+                      <p>Are you sure that you want to activate tournament {{this.tourName}}? </p>
+                    </div>
+                <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="this.activateTournament(); this.displayActivateTournament = 'none'" style="background-color: #92391B;">Yes</button>
+                      <button type="button" class="btn btn-default" (click)="this.displayActivateTournament = 'none'" style="background-color: #92391B;">No</button>
+                    </div>
+       </div>
+        </div>
+</div>
+

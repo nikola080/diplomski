@@ -1,0 +1,30 @@
+<div class="ranklist rounded">
+    <div class="row">
+        <table class="table table-bordered table-striped ">
+            <thead>
+              <tr>
+                <th colspan="8" style="text-align: center !important;">
+                    <span>Rank list of Nikola's tennis club</span>
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Points</th>
+              </tr>
+            </thead>
+            <tbody class>
+              
+                    <tr *ngFor = "let user of this.rankingUsers; let i = index">
+                        <td scope="col">{{i + 1}}</td>
+                        <td scope="col">{{user.firstName}}</td>
+                        <td scope="col">{{user.lastName}}</td>
+                        <td scope="col">{{user.points}}</td>            
+                    </tr>                    
+            </tbody>
+            
+          </table>
+    </div>
+</div>
+

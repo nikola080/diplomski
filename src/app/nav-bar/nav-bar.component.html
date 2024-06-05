@@ -1,0 +1,64 @@
+<nav class="row navbar navigacija p-0 navitem">
+    <div class="container-fluid justify-content-between outer1 outer0">
+        <div class="p-2 d-flex">
+            <button 
+            style="background-color: #A03F1E;"
+            cButton [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+            class="navbar-toggler align-self-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        
+      
+        <c-offcanvas
+        class = "offCanvasMain offcancas_div"
+        id="OffcanvasNoBackdrop"
+        [backdrop]="false"
+        [scroll]="true"
+        placement="start"
+        #offcanvasNoBackdrop
+        >
+        <c-offcanvas-header>
+            <p>
+                <span class = "wordColor" style="font-size: 26;">Menu</span> 
+            </p>
+        <button
+            class="btn-close"
+            aria-label="Close"
+            cButtonClose
+            [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+            
+        ></button>
+        </c-offcanvas-header>
+        <c-offcanvas-body>
+        <p style="padding-bottom: 8px ;">
+            <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline">Make reservation</span> 
+        </p>
+        <p style="padding-bottom: 8px ;">
+            <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline">My reservations</span> 
+        </p>
+        <p style="padding-bottom: 8px ;" >
+            <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline">Registration for the tournaments</span>
+        </p>
+        <p style="padding-bottom: 8px ;" >
+            <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" >Current tournament</span>
+        </p>
+       
+        </c-offcanvas-body>
+        </c-offcanvas>
+        <div class="p-2 d-flex">
+            <div class="d-flex container-fluid justify-content-end">
+                <div class="p-2 align-self-center ">
+                    <span class = "wordColor">Galerija</span>
+                </div>
+                <div class="p-2 offset-2 align-self-center navMiddle">
+                    <u style="color: azure;"><span class = "wordColor"> Logout </span></u> 
+                </div>
+
+                
+            </div>
+        </div>
+        
+       
+        </div>
+   </nav>

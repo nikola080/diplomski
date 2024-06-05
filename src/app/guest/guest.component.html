@@ -1,0 +1,111 @@
+
+  <body class = "d-flex flex-column container-fluid guest_body">
+    <nav class="navbar navigacija row p-0 navitem">
+        <div class="container-fluid justify-content-between outer1 outer0">
+            <div class="p-2 d-flex">
+                <button 
+                style="background-color: #A03F1E;"
+                cButton [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                class="navbar-toggler align-self-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+          
+            <c-offcanvas
+            class = "offCanvasMain offcancas_div"
+            id="OffcanvasNoBackdrop"
+            [backdrop]="false"
+            [scroll]="true"
+            placement="start"
+            #offcanvasNoBackdrop
+            >
+            <c-offcanvas-header>
+                <p>
+                    <span class = "wordColor" style="font-size: 26;">Menu</span> 
+                </p>
+            <button
+                class="btn-close"
+                aria-label="Close"
+                cButtonClose
+                [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                
+            ></button>
+            </c-offcanvas-header>
+            <c-offcanvas-body>
+                <p style="padding-bottom: 8px ;" >
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showTournamentTable = !this.showTournamentTable">Current tournament</span>
+                </p>
+                <p style="padding-bottom: 8px ;" >
+                    <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealRankList = !this.revealRankList">Rank list</span>
+                </p>
+           
+            </c-offcanvas-body>
+            </c-offcanvas>
+            
+            <div class="navPadding d-flex">
+                <div class="d-flex container-fluid justify-content-end">
+                    <div class="navPadding offset-2 align-self-center navMiddle" style="color: azure;">
+                        Galerija
+                    </div>
+                    <div *ngIf = "!this.loggedIn" class="p-2 offset-2 align-self-center" style="white-space: nowrap;">
+                        <span (click) = "this.openLoginForm()" style="color: azure;">Sign in</span>
+                    </div>
+                    <div class="navPadding offset-2 align-self-center" class = "profile_picture_div flex-shrink-1 align-self-center">
+                        <img [src]="'/assets/' + this.loadedPicture" alt="#" class = "rounded">
+                    </div>
+                </div>
+            </div>
+            
+           
+        </div>
+      </nav>
+
+      <div class="row d-flex " style="min-height: 65px;"> &nbsp;</div>
+
+
+     <div *ngIf = "this.loginForm" class="row d-flex justify-content-center">
+        
+            <div class=" col-md-12  col-lg-3 align-self-center">
+                <app-login-form></app-login-form>
+            </div>
+        
+     </div>
+
+     <div *ngIf = "this.showTournamentTable" class="row d-flex justify-content-center pt-3 pb-3">
+        <div *ngFor = 'let tour of this.tournaments'>
+            <div class="row d-flex justify-content-center pt-3">
+                <div class="col-1" *ngIf = "!this.isSmallScreen()">
+                    &nbsp;
+                </div>
+                <div class=" col-10 align-self-center">
+                    <div class="container-fluid d-flex">
+                        <app-tournament-display [tournamentName] = 'tour.name' class="row flex-grow-1"></app-tournament-display>
+                    </div>
+                    
+                </div>
+                <div class="col-1"  *ngIf = "!this.isSmallScreen()">
+                    &nbsp;
+                </div>
+                </div>
+        </div>
+    </div>
+
+    <div *ngIf = "this.revealRankList" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <app-rank-list class="row flex-grow-1"></app-rank-list>
+                
+            </div>
+            
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+
+    
+  </body>
+

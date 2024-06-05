@@ -1,0 +1,323 @@
+
+<header>
+    
+</header>
+
+<body class = "d-flex flex-column container-fluid guest_body" style="overflow-x: scroll;">
+    <nav class="row navbar navigacija p-0 navitem">
+        <div class="container-fluid justify-content-between outer1 outer0">
+            <div class="p-2 d-flex">
+                <button 
+                style="background-color: #A03F1E;"
+                cButton [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                class="navbar-toggler align-self-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            
+          
+            <c-offcanvas
+            class = "offCanvasMain offcancas_div"
+            id="OffcanvasNoBackdrop"
+            [backdrop]="false"
+            [scroll]="true"
+            placement="start"
+            #offcanvasNoBackdrop
+            >
+            <c-offcanvas-header>
+                <p>
+                    <span class = "wordColor" style="font-size: 26;">Menu</span> 
+                </p>
+            <button
+                class="btn-close"
+                aria-label="Close"
+                cButtonClose
+                [cOffcanvasToggle]="offcanvasNoBackdrop.id"
+                
+            ></button>
+            </c-offcanvas-header>
+            <c-offcanvas-body>
+            <p style="padding-bottom: 8px ;">
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealRservationFrom()">Make reservation</span> 
+            </p>
+            <p style="padding-bottom: 8px ;">
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showReservations = !this.showReservations">My reservations</span> 
+            </p>
+            <p style="padding-bottom: 8px ;">
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showMyPractise = !this.showMyPractise">My practices</span> 
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.showRegistration = !this.showRegistration">Registration for the tournaments</span>
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealTournamentTable()">Current tournament</span>
+            </p>
+            <p style="padding-bottom: 8px ;" >
+                <span class = "wordColor" style="font-size: 20; text-decoration-color: white; text-decoration : underline" (click) = "this.revealRankList = !this.revealRankList">Rank list</span>
+            </p>
+           
+            </c-offcanvas-body>
+            </c-offcanvas>
+            <div class="p-2 d-flex">
+                <div class="d-flex container-fluid justify-content-end">
+                    <div class="navPadding align-self-center ">
+                        <span class = "wordColor">Galerija</span>
+                    </div>
+                    <div class="navPadding offset-2 align-self-center navMiddle">
+                        <u style="color: azure;"><span class = "wordColor" (click) = "this.logOut()"> Logout </span></u> 
+                    </div>
+                    <div class="navPadding offset-2 align-self-center" style="white-space: nowrap;">
+                        <u style="color: azure;"><span class = " wordColor" (click) = "this.revealProfile()">{{loadedFirstName + " " + loadedLastName}}</span></u>
+                    </div>
+                    <div class="navPadding offset-2 align-self-center" class = "profile_picture_div flex-shrink-1 align-self-center">
+                        <img [src]="'/assets/' + this.loadedPicture" alt="#" class = "rounded" (click) = "this.revealProfile()">
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+           
+            </div>
+       </nav>
+     <div class="row d-flex " style="min-height: 65px;"> &nbsp;</div>
+     <div *ngIf = "this.showProfile" class="row d-flex justify-content-center">
+            <div class="col-2" *ngIf = "!this.isSmallScreen()">
+                &nbsp;
+            </div>
+            <div class=" col-sm-12 col-lg-8 align-self-center">
+                <app-profile></app-profile>
+            </div>
+            <div class="col-2" *ngIf = "!this.isSmallScreen()">
+                    &nbsp;
+            </div>
+        
+     </div>
+
+    <div *ngIf = "this.showReservationForm" class="row d-flex justify-content-center pt-3">
+        <div class="col-1">
+            &nbsp;
+        </div>
+        <div class=" col-10 align-self-center">
+            <div class="container-fluid d-flex">
+                <app-reservation-form reservationType="recreation" class="row flex-grow-1"></app-reservation-form>
+            </div>
+            
+        </div>
+        <div class="col-1">
+            &nbsp;
+        </div>
+    </div>
+
+    
+    <div *ngIf = "this.showReservations && this.myReservations.length != 0; else noReservations" class="row d-flex justify-content-center pt-3 registered_table">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center" >
+            <table class="table table-striped table-bordered animation_table">
+                <thead>
+                  <tr>
+                    <th colspan="8" style="text-align: center !important;">
+                        <span>List of my reservations</span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Starts</th>
+                    <th scope="col">Ends</th>
+                    <th scope="col">Court</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody class>
+                  
+                        <tr *ngFor = "let res of this.myReservations; let i = index" [ngClass] = "res.status == '3' ? 'table-danger' : ''">
+                            <td scope="col">{{i + 1}}</td>
+                            <td scope="col">{{res.date}}</td>
+                            <td scope="col">{{res.starts}}</td>
+                            <td scope="col">{{res.ends}}</td>
+                            <td scope="col">{{res.court}}</td>
+                            <td scope="col">{{res.type}}</td>
+                            <td scope="col">{{this.getStatus(res.status)}}</td>
+                            <td scope="col">
+                                <button *ngIf = "res.status != '3'" type="button" class = 'btn w-100' style="background-color: #92391B; font-size: 18;" 
+                                data-toggle="modal fade" (click) = "this.indexResToDelete = i; this.displayDelete = 'block'">cancel reservation</button>
+                            </td>
+                        
+                        </tr>                    
+                </tbody>
+                
+              </table>
+        </div>
+        <div class="col-2">
+                &nbsp;
+        </div>
+    
+    </div>
+    <ng-template #noReservations> 
+        <div  *ngIf = 'this.showReservations' class="row d-flex justify-content-center pt-3">
+            <div class="col-2">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">You haven't made single reservation yet!</span>               
+                </div>
+                
+            </div>
+            <div class="col-2">
+                &nbsp;
+            </div>
+        </div>
+     </ng-template>
+
+     <div *ngIf = "this.showMyPractise && this.myPractises.length != 0; else noPractises" class="row d-flex justify-content-center pt-3 registered_table">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center" >
+            <table class="table table-bordered table-striped animation_table">
+                <thead>
+                  <tr>
+                    <th colspan="7" style="text-align: center !important;">
+                        <span>List of my practices</span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Starts</th>
+                    <th scope="col">Ends</th>
+                    <th scope="col">Court</th>
+                    <th scope="col">Coach</th>
+                    <th scope="col">Practice partners</th>
+                  </tr>
+                </thead>
+                <tbody class>
+                  
+                        <tr *ngFor = "let res of this.myPractises; let i = index">
+                            <td scope="col">{{i + 1}}</td>
+                            <td scope="col">{{res.date}}</td>
+                            <td scope="col">{{res.starts}}</td>
+                            <td scope="col">{{res.ends}}</td>
+                            <td scope="col">{{res.court}}</td>
+                            <td scope="col">{{res.reservedByWho}}</td>
+                            <td scope="col">
+                                <ol class="list-group list-group-numbered" *ngIf = "res.academy_players.length != 0">
+                                    <li class="list-group-item" *ngFor = "let player of res.academy_players">
+                                        
+                                            {{player}}
+                                        
+                                    </li>
+                                </ol>
+
+                                <div *ngIf = "res.academy_players.length == 0">
+                                    
+                                    Solo 
+                                </div>
+                            </td>
+                        
+                        </tr>                    
+                </tbody>
+                
+              </table>
+        </div>
+        <div class="col-2">
+                &nbsp;
+        </div>
+    
+    </div>
+    <ng-template #noPractises> 
+        <div  *ngIf = 'this.showMyPractise' class="row d-flex justify-content-center pt-3">
+            <div class="col-2">
+                &nbsp;
+            </div>
+            <div class=" rounded col-8 align-self-center css_block">
+                <div class="container-fluid d-flex justify-content-center">                  
+                    <span style="font-size: 28px;">You don't have any practice at the moment!</span>               
+                </div>
+            </div>
+            <div class="col-2">
+                &nbsp;
+            </div>
+        </div>
+     </ng-template>
+
+    <div *ngIf = "this.showRegistration" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <app-tournament-registration reservationType="recreation" class="row flex-grow-1"></app-tournament-registration>
+                
+            </div>
+            
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+
+    
+    <div *ngIf = "this.revealRankList" class="row d-flex justify-content-center pt-3">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class=" col-8 align-self-center">
+            <div class="container-fluid d-flex">
+                <app-rank-list class="row flex-grow-1"></app-rank-list>
+                
+            </div>
+            
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+
+    <div *ngIf = "this.showTournamentTable" class="row d-flex justify-content-center pt-3">
+        <div *ngFor = 'let tour of this.tournaments'>
+            <div class="row d-flex justify-content-center pt-3">
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                <div class=" col-10 align-self-center">
+                    <div class="container-fluid d-flex">
+                        <app-tournament-display [tournamentName] = 'tour.name' class="row flex-grow-1"></app-tournament-display>
+                    </div>
+                    
+                </div>
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                </div>
+        </div>
+    </div>
+    
+    <div *ngIf = "this.displayDelete == 'block'" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayDelete}">
+        <div class="modal-dialog" role="document">
+              <div class="modal-content" style="background-color: #fffbe1;">
+                    <div class="modal-header">
+                          <h4 class="modal-title">Alert</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="this.displayDelete = 'none'"><span aria-hidden="true">&times;</span></button>
+                        </div>
+               <div class="modal-body">
+                          <p>
+                            Are you sure that you want to delete reservation {{this.indexResToDelete}}
+                          </p>
+                        </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn btn-default" (click)="this.deleteReservation(this.indexResToDelete); this.displayDelete = 'none'" style="background-color: #92391B;">Yes</button>
+                          <button type="button" class="btn btn-default" (click)="this.displayDelete = 'none'" style="background-color: #92391B;">No</button>
+                        </div>
+           </div>
+            </div>
+    </div> 
+
+  </body>
+

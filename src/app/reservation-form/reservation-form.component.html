@@ -1,0 +1,226 @@
+
+
+    <div class="reservation rounded">
+        <div class="row">
+            <div class="container d-flex justify-content-center ">
+                <div class="row">
+                    <div class="col-12 align-self-center">
+                       
+                        <span class = "bigfont">Reservation form</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container d-flex justify-content-start ">
+                <div class="row">
+                    <div class="col-12 align-self-center">
+                       
+                        <span class = "font-class">Choose the court which you want to reserve:</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" d-flex row pb-3 pt-3">
+            <div  #profilePicture1 class="col-4 profile_picture rounded">
+               <div #courtBackground1 class="container-fluid court_number min-height-court" >
+                    <div class="row">
+                        <div class="col-2">
+                           <b><span class = "bigfont">Court 1</span></b>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            <div #profilePicture2 class="col-4 profile_picture rounded">
+                <div #courtBackground2 class="container-fluid court_number min-height-court">
+                    <div class="row">
+                        <div class="col-2">
+                           <b><span  class = "bigfont">Court 2</span></b>
+                        </div>
+                    </div>
+               </div>
+            </div>
+            <div #profilePicture3 class="col-4 profile_picture rounded"> 
+                <div #courtBackground3 class="container-fluid court_number min-height-court">
+                    <div class="row">
+                        <div class="col-2">
+                           <b><span class = "bigfont">Court 3</span></b>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+         
+                    <div class="col-4 align-self-center">
+                       
+                        <span class = "font-class">Choose day of reservation:</span>
+                        
+                    </div>
+                    <div class="col-8 align-self-center">
+                       
+                        <select class="form-control form-control" [(ngModel)] = "this.dateChosen" name = "date_chosen" (change) = "this.searched = false">
+                            
+                            <option *ngFor = "let date of this.daysAvailable; let i = index" value = "{{date}}">{{date}}</option>    
+
+                        </select>
+                        
+                    </div>
+             
+        </div>
+        
+
+        <div class="row pb-3">
+         
+            <div class="col-12 align-self-center">
+               
+                <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;"  (click) = "this.searchFreePeriod(); this.searched = true;">
+                    <span class = "font-class">search</span>
+                </button>
+                
+            </div>
+     
+        </div>
+        <div *ngIf = "this.searched && this.courtChosen !== '' && this.dateChosen !== ''">
+            <div class="row pb-1">
+         
+                <div class="col-12 align-self-center">
+                   
+                    <span class = "font-class">Free periods based on your search: </span>
+                   
+                </div>
+         
+            </div>
+            <div class="row pb-3">
+                <table class="table table-striped table-bordered animation_table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Court</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class = "table-striped">
+                      
+                            <tr *ngFor = "let period of this.tempPeriods; let i = index">
+                                <td scope="col">{{i + 1}}</td>
+                                <td scope="col">{{period[0]}}</td>
+                                <td scope="col">{{period[1]}}</td>
+                                <td scope="col">{{this.courtChosen}}</td>
+                                <td scope="col">{{this.dateChosen}}</td>
+                                <td scope="col"><button class = 'btn w-100 font-class1' style="background-color: #92391B;" 
+                                    (click) = "this.setPeriod(i); this.showSelectPeriod = true;">make reservation </button></td>
+                            </tr>                    
+                    </tbody>
+                    
+                  </table>
+            </div>
+            <div *ngIf = "!this.isSmallScreen()" >
+                <div class="row pb-3" *ngIf = "this.showSelectPeriod">
+                
+                    <div class="container d-flex justify-content-start ">
+                        <div class="row flex-grow-1">
+                            <div class="col-4 align-self-center">
+                            
+                                <span class = 'font-class1'>Make reservation in period #{{this.period}}: </span>
+                                
+                            </div>
+                            <div class="col-1 align-self-center">
+                            
+                                <span class = 'font-class1'>From:</span>
+                                
+                            </div>
+                            <div class="col-3 align-self-center">
+                            
+                                <input type="text" class="form-control"  placeholder="Format : (hours:minutes)" [(ngModel)] = "this.reservationFrom" name = "resFrom">
+                                
+                            </div>
+                            <div class="col-1 align-self-center">
+                            
+                                <span class = 'font-class1'>To:</span>
+                                
+                            </div>
+                            <div class="col-3 align-self-center">
+                            
+                                <input type="text" class="form-control"  placeholder="Format : (hours:minutes)" [(ngModel)] = "this.reservationTo" name = "resTo">
+                                
+                            </div>
+                           
+                        </div>
+
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div *ngIf = "this.isSmallScreen()" >
+                <div class="row pb-3" *ngIf = "this.showSelectPeriod">
+                
+                    <div class="container d-flex justify-content-start flex-column">
+                        <div class="row flex-grow-1">
+                            <div class="col-4 align-self-center">
+                            
+                                <span class = 'font-class1'>Make reservation in period #{{this.period}}: </span>
+                                
+                            </div>
+                        </div>
+                        <div class="row flex-grow-1">
+                            <div class="col-1 align-self-center">
+                            
+                                <span class = 'font-class1'>From:</span>
+                                
+                            </div>
+                            <div class="col-5 align-self-center">
+                            
+                                <input type="text" class="form-control"  placeholder="Format : (hours:minutes)" [(ngModel)] = "this.reservationFrom" name = "resFrom">
+                                
+                            </div>
+                            <div class="col-1 align-self-center">
+                            
+                                <span class = 'font-class1'>To:</span>
+                                
+                            </div>
+                            <div class="col-5 align-self-center">
+                            
+                                <input type="text" class="form-control"  placeholder="Format : (hours:minutes)" [(ngModel)] = "this.reservationTo" name = "resTo">
+                                
+                            </div>
+                        </div>
+                       
+                           
+                    </div>
+    
+                </div>
+            </div>
+            <div class="row" *ngIf = "this.reservationError != ''">
+                <div class="col-12">
+                    <p style="color: red;">{{this.reservationError}}</p>
+                </div>
+            </div>
+            <div class="row pb-3"  *ngIf = "this.showSelectPeriod">
+         
+                <div class="col-12 align-self-center">
+                   
+                    <button type="submit" class = "btn w-100 button_search_res flex-grow-1" style="background-color: #92391B;"  (click) = "this.makeReservation();">
+                        <span  style="font-size: 28;">submit reservation</span>
+                    </button>
+                    
+                </div>
+         
+            </div>
+        </div>
+        
+       
+    </div>
+   
+   <!--
+     
+   -->

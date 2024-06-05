@@ -1,0 +1,142 @@
+
+
+
+<form class = "form_login rounded">
+    <div *ngIf = "this.getFlagLogIn() == 1" class="form-group mb-2">
+      <label>First Name:</label>
+      <input type = "text" class="form-control pb-2" id="create_name" placeholder="Enter your first name" [(ngModel)] = "this.firstName" name = "firstName">
+      <div  *ngIf = "this.firstNameError != '' " style="color: red;">
+        {{this.firstNameError}}
+      </div>
+      
+    </div>
+    <div *ngIf = "this.getFlagLogIn() == 1" class="form-group mb-2">
+        <label>Last name:</label>
+        <input type = "text" class="form-control" id="create_surename" placeholder="Enter you last name" [(ngModel)] = "this.lastName" name = "lastName">
+        <div  *ngIf = "this.lastNameError != '' " style="color: red;">
+            {{this.lastNameError}}
+        </div>
+    </div>
+    <div class="form-group mb-2">
+        <label>Email address</label>
+        <input type="email" class="form-control" id="create_email" placeholder="Enter email" [(ngModel)] = "this.email" name = "email">
+        <div  *ngIf = "this.emailError != '' " style="color: red;">
+            {{this.emailError}}
+        </div>
+    </div>
+    <div *ngIf = 'this.getFlagLogIn() != 2'class="form-group mb-3">
+      <label>Password</label>
+      <input type="password" class="form-control" id="create_password" placeholder="Enter password" [(ngModel)] = "this.password" name = "password">
+      <div  *ngIf = "this.passwordError != '' " style="color: red;">
+        {{this.passwordError}}
+      </div>
+
+      <div  *ngIf = "this.credentialsError != '' " style="color: red;">
+        {{this.credentialsError}}
+        </div>
+    </div>
+  
+    <div *ngIf = "this.getFlagLogIn() == 1" class="form-group mb-2">
+        <label>Phone number:</label>
+        <input type = "phone" class="form-control" id="create_phone" placeholder="e.g. (+381) 6721837" [(ngModel)] = "this.phone" name = "phone">
+        <div  *ngIf = "this.phoneError != '' " style="color: red;">
+            {{this.phoneError}}
+        </div>
+    </div>
+    <div *ngIf = "this.getFlagLogIn() == 1" class="form-group mb-3">
+        <label>Choose your type of player</label>
+        <select class="form-control form-control" [(ngModel)] = "this.type" name = "tip">
+            <option selected></option>
+            <option *ngFor = "let ty of types" value = "{{ty}}">{{ty}}</option>    
+        </select>
+        <div  *ngIf = "this.typeError != '' " style="color: red;">
+            {{this.typeError}}
+        </div>
+        
+    </div>
+    <div class="d-flex justify-content-between">
+        <div *ngIf = "this.getFlagLogIn() == 1" class="form-group mb-3 row">
+            <label class = "col-4">Enter picture</label>
+            <input class = "col-8" type="file" accept="image/png, image/jpeg" (change) = "profilePictureImage($event)" name = 'profilePicture'>
+        </div>
+    </div>
+
+
+    <div class="row d-flex justify-content-center mb-2">
+        <div *ngIf = "this.getFlagLogIn() == 0" class="col-12">
+            <button type="submit" class="btn w-100" (click) = "this.signIn()" style="background-color: #92391B;">Sign in</button>
+        </div>
+        <div *ngIf = "this.getFlagLogIn() == 1" class="col-12">
+            <button type="submit" class="btn btn-warning w-100" (click) = "this.atemptSignUp()"  style="background-color: #92391B;">Sign up</button>
+        </div>
+        <div *ngIf = "this.getFlagLogIn() == 2" class="col-12">
+            <button type="submit" class="btn btn-warning w-100" (click) = "this.changePassword()">Change password</button>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mb-2">
+
+        <a *ngIf = "this.getFlagLogIn() == 0"  href="#" class = "col-6" style="text-align: center; color: black;" (click) = "this.revealSignUp()">Create account</a>
+        <a *ngIf = "this.getFlagLogIn() == 1 || this.getFlagLogIn() == 2"  href="#" class = "col-6" style="text-align: center; color: black;" (click) = "this.hideSignUp()">Sign in</a>
+
+    </div>
+
+   <!--
+
+ Add the Bootstrap CSS link in the head of your HTML file if you haven't done so already 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+
+<form class="form_login rounded">
+  <div *ngIf="getFlagLogIn() == 1" class="form-group mb-2 col-md-6">
+    <label>First Name:</label>
+    <input type="text" class="form-control pb-2" id="create_name" placeholder="Enter your first name" [(ngModel)]="firstName" name="firstName">
+    <div *ngIf="firstNameError !== ''" style="color: red;">
+      {{ firstNameError }}
+    </div>
+  </div>
+
+  <div *ngIf="getFlagLogIn() == 1" class="form-group mb-2 col-md-6">
+    <label>Last name:</label>
+    <input type="text" class="form-control" id="create_surename" placeholder="Enter you last name" [(ngModel)]="lastName" name="lastName">
+    <div *ngIf="lastNameError !== ''" style="color: red;">
+      {{ lastNameError }}
+    </div>
+  </div>
+
+  <div class="form-group mb-2 col-md-12">
+    <label>Email address</label>
+    <input type="email" class="form-control" id="create_email" placeholder="Enter email" [(ngModel)]="email" name="email">
+    <div *ngIf="emailError !== ''" style="color: red;">
+      {{ emailError }}
+    </div>
+  </div>
+
+ 
+
+  <div class="row d-flex justify-content-center">
+    <div *ngIf="getFlagLogIn() == 0" class="form-group col-md-12">
+      <button type="submit" class="btn btn-block" (click)="signIn()" style="background-color: #92391B;">Sign in</button>
+    </div>
+    <div *ngIf="getFlagLogIn() == 1" class="form-group col-md-12">
+      <button type="submit" class="btn btn-warning btn-block" (click)="atemptSignUp()" style="background-color: #92391B;">Sign up</button>
+    </div>
+    <div *ngIf="getFlagLogIn() == 2" class="form-group col-md-12">
+      <button type="submit" class="btn btn-warning btn-block" (click)="changePassword()">Change password</button>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <a *ngIf="getFlagLogIn() == 0" href="#" class="col-md-6" style="text-align: center; color: black;" (click)="revealSignUp()">Create account</a>
+    <a *ngIf="getFlagLogIn() == 1 || getFlagLogIn() == 2" href="#" class="col-md-6" style="text-align: center; color: black;" (click)="hideSignUp()">Sign in</a>
+  </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+   -->
+    
+
+</form>

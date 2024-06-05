@@ -1,0 +1,159 @@
+
+
+<div class="containter-fluid profile flex-column rounded ">
+    <div class="row">
+        <div class="container d-flex justify-content-center ">
+            <div class="row">
+                <div class="col-6 align-self-center">
+                   
+                    <span style="color:211A1E; white-space: nowrap; font-size: 36;">Profile</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" d-flex row pb-3 pt-3">
+        <div class="col-1" *ngIf = "!this.isSmallScreen()">
+            &nbsp;
+        </div>
+        <div class=" profile_picture_div col-2  flex-shrink-1">
+            <img [src] = "'/assets/' + this.loadedPicture" class = "rounded">
+        </div>
+        <div class="col-3 align-self-center">
+            <span class = "font-class" style="text-align: center;">Change picture : </span>
+        </div>
+        <div class="col-1 align-self-center">
+            <input class = "align-self-center" id="files" type="file" accept="image/png, image/jpeg" (change) = "profilePictureImage($event)" name = 'profilePicture'>
+        </div>
+        
+    </div>
+    <div class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-8 flex-shrink-1">
+            <span class = "font-class">{{"First name : " + this.loadedFirstName}}</span>
+        </div>
+        <div class="col-4 align-self-center">
+            <div class="container d-flex justify-content-end">
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn " style="background-color: #92391B;" (click) = "this.toggleForm(1);">
+                        <span style="color:211A1E; white-space: nowrap;" >change</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <div *ngIf = "this.openChange[1]" class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-4 flex-shrink-1">
+            <span class = "font-class">New first name : </span>
+        </div>
+        <div class="col-8 align-self-center">
+            <input type = "text" class="form-control" id="create_name" placeholder="Enter your first name" [(ngModel)] = "this.newFirstName" name = "firstName">
+        </div>
+    </div>
+
+
+
+
+    <div class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-8 flex-shrink-1">
+            <span class = "font-class">{{"Last name : " + this.loadedLastName}}</span>
+        </div>
+        <div class="col-4 align-self-center">
+            <div class="container d-flex justify-content-end">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn " style="background-color: #92391B;" (click) = "this.toggleForm(2);">
+                            <span style="color:211A1E; white-space: nowrap;"  >change</span>
+                        </button>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div *ngIf = "this.openChange[2]" class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-4 flex-shrink-1">
+            <span class = "font-class">New last name : </span>
+        </div>
+        <div class="col-8 align-self-center">
+            <input type = "text" class="form-control" id="create_lname" placeholder="Enter your last name" [(ngModel)] = "this.newLastName" name = "lastName">
+        </div>
+    </div>
+
+
+
+    <div class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-8 flex-shrink-1">
+            <span class = "font-class">{{"Phone number : " + this.loadedPhone}}</span>
+        </div>
+        <div class="col-4 align-self-center">
+            <div class="container d-flex justify-content-end">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn " style="background-color: #92391B;" (click) = "this.toggleForm(3);">
+                            <span style="color:211A1E; white-space: nowrap;"  >change</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "this.openChange[3]" class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-4 flex-shrink-1">
+            <span class = "font-class">New phone : </span>
+        </div>
+        <div class="col-8 align-self-center">
+            <input type = "text" class="form-control" id="create_phone" placeholder="Enter phone" [(ngModel)] = "this.newPhone" name = "newPhone">
+        </div>
+    </div>
+
+    <div class=" font-class d-flex row pb-2 pl-3" *ngIf = "this.phoneError != ''">
+        <p style="color: red;">
+            {{this.phoneError}}
+        </p>
+    </div>
+
+
+    <div class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-8 flex-shrink-1">
+            <span class = "font-class">{{"Email : " + this.loadedEmail}}</span>
+        </div>
+        <div class="col-4 align-self-center">
+            <div class="container d-flex justify-content-end">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn " style="background-color: #92391B;" (click) = "this.toggleForm(4);">
+                            <span style="color:211A1E; white-space: nowrap;"  >change</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf = "this.openChange[4]" class=" d-flex row pb-3 pl-3">
+        <div class=" pl-3 col-4 flex-shrink-1">
+            <span class = "font-class">New email : </span>
+        </div>
+        <div class="col-8 align-self-center">
+            <input type = "text" class="form-control" id="create_email" placeholder="Enter email" [(ngModel)] = "this.newEmail" name = "newEmail">
+        </div>
+    </div>
+    <div class=" font-class d-flex row pb-2 pl-3" *ngIf = "this.emailExistsError != ''">
+        <p style="color: red;">
+            {{this.emailExistsError}}
+        </p>
+    </div>
+    <div class="row pb-3">
+        <div class="container d-flex justify-content-center">
+            <div class="row ">
+                <div class="col-6 align-self-center">
+                    <button class = "btn" type="submit" style="background-color: #92391B;" (click) = "this.changeInputs()"> 
+                        <span style="color:211A1E; white-space: nowrap;"  >change inputs</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
